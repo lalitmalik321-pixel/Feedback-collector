@@ -1,11 +1,13 @@
 import { useState } from "react";
 import ModalComponent from "./ModalComponent";
+import FeedbackItem from "./FeedbackItem";
 
+function FeedbackList({ feedbacks, handleDelete }) {
+   // State to track the ID of the feedback to be deleted
+const [selectedId, setSelectedId] = useState(null);
 
-function FeedbackList({ feedbacks, setFeedbacks }) {
-const [selectedId, setSelectedId] = useState(null); // State to track the ID of the feedback to be deleted
-
-const handleDelete = (id) => {          // Set the selectedId to the id of the feedback to be deleted
+  // Set the selectedId to the id of the feedback to be deleted
+const handleDeleteClick = (id) => {
   setSelectedId(id);
 };
 
@@ -13,34 +15,32 @@ const handleDelete = (id) => {          // Set the selectedId to the id of the f
     <div className="feedback-list">
       <h2>Feedback List</h2>
 
-      {feedbacks.map((feedback) => (                        // Render each feedback item in the list
-        <div className="feedback-card" key={feedback.id}>
-          <h3>{feedback.name}</h3>
-          <p>{feedback.email}</p>
-          <p>{feedback.message}</p>
-          <p>Date: {feedback.date}</p>
-
-           <button onClick={() => handleDelete(feedback.id)}>
-                 Delete
-            </button>
-        </div>
+      {feedbacks.map((feedback) => (                       
+      <FeedbackItem key={feedback.id}
+                    feedback={feedback}
+                    onDelete={handleDeleteClick}
+      />
       ))}
 
-          {selectedId !== null && (                        // Show the modal only when selectedId is not null
+      {/* Show the confirmation modal when a feedback is selected */}
+    {selectedId !== null && (                        
         <ModalComponent
-          onConfirm={() => {                                    // Handle the confirmation of deletion
-            const updatedFeedbacks = feedbacks.filter(  //filter used for go through the feedbacks and remove the one with we want to delete
-              (feedback) => feedback.id !== selectedId  //coniton to remove the feedback 
-            );
-
-            setFeedbacks(updatedFeedbacks);
-            setSelectedId(null);
-          }}
+          onConfirm={() => {
+      fetch(`http://localhost:5001/api/feedback/${selectedId}`, {
+       method: "DELETE",
+      })
+      .then((response) => response.json())
+      .then((data) => {
+      console.log(data);
+       handleDelete(selectedId);
+      setSelectedId(null);
+      });
+}}
           onCancel={() => setSelectedId(null)}
         />
       )}
     </div>
-  );
+  ); 
 }
 
 export default FeedbackList;

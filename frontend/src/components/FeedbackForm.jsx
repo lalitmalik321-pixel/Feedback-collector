@@ -1,11 +1,12 @@
 import { useState } from "react";
 
-function FeedbackForm({feedbacks, setFeedbacks})  {
+function FeedbackForm({ feedbacks, setFeedbacks })  {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (event) => {
+  //After submit button
+ const handleSubmit = async (event) => {
   event.preventDefault();
 
   if (!name || !email || !message) {
@@ -13,19 +14,47 @@ function FeedbackForm({feedbacks, setFeedbacks})  {
     return;
   }
 
-  const newFeedback = {
-  id: Date.now(),
-  name,
-  email,
-  message,
-  date: new Date().toISOString().split("T")[0],
-};
+  try {
+    // Send the feedback to the backend API
+    const response = await fetch("http://localhost:5001/api/feedback", { 
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        message,
+      }),
+    });
 
-  setFeedbacks([...feedbacks , newFeedback]);
+    const data = await response.json();
 
-  setName("");
-  setEmail("");
-  setMessage("");
+    if (!response.ok) {
+      alert("Failed to save feedback");
+      return;
+    }
+
+    const newFeedback = {
+      id: data.id,
+      name,
+      email,
+      message,
+      created_at: new Date().toISOString(),
+    };
+
+    // Add the newly submitted feedback to the current list
+    setFeedbacks([...feedbacks, newFeedback]);
+
+    setName("");
+    setEmail("");
+    setMessage("");
+
+    alert("Feedback submitted successfully");
+  } catch (error) {
+    console.log("Error:", error);
+    alert("Something went wrong");
+  }
 };
 
   return (

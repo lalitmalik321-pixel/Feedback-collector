@@ -1,20 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FeedbackForm from "../components/FeedbackForm";
 import FeedbackList from "../components/FeedbackList";
+import getFeedbacks from "../services/FeedbackService";
 
 function FeedbackPage() {
   const [feedbacks, setFeedbacks] = useState([]);
 
-  const [search, setSearch] = useState("");     //for search filtering
+  // Update the local list after a feedback is deleted
+  const handleDelete = (id) => {
+  setFeedbacks((currentFeedbacks) =>
+    currentFeedbacks.filter((feedback) => feedback.id !== id)
+  );
+};
 
-  const [selectedDate, setSelectedDate] = useState(""); // for date filter
+  // Load saved feedback when the page is first rendered
+    useEffect(() => {  
+     getFeedbacks() 
+      .then((data) => { setFeedbacks(data); }) 
+      .catch((error) => {
+        console.log("Error fetching feedback:", error);
+      });
+  }, []);
 
+  const [search, setSearch] = useState("");   
+
+  const [selectedDate, setSelectedDate] = useState(""); 
+
+    // Apply keyword and date filters before displaying the feedback
  const filteredFeedbacks = feedbacks.filter(
   (feedback) =>
     (feedback.name.toLowerCase().includes(search.toLowerCase()) ||
       feedback.email.toLowerCase().includes(search.toLowerCase()) ||
       feedback.message.toLowerCase().includes(search.toLowerCase())) &&
-    (selectedDate === "" || feedback.date === selectedDate)
+   (selectedDate === "" ||
+  new Date(feedback.created_at).toLocaleDateString("en-CA") === selectedDate)
 );
 
   return (
@@ -30,10 +49,11 @@ function FeedbackPage() {
 <div className="search-box">
   <input
     type="text"
-    placeholder="Search feedback..."
+    placeholder="🔎  Search feedback ..."
     value={search}
     onChange={(event) => setSearch(event.target.value)}
   />
+</div>
 
   <div className="search-box">
   <input
@@ -43,11 +63,12 @@ function FeedbackPage() {
   />
 </div>
 
-</div>
+
 
      <FeedbackList
   feedbacks={filteredFeedbacks}
   setFeedbacks={setFeedbacks}
+  handleDelete={handleDelete}
 />
 
       </div>

@@ -1,3 +1,4 @@
+// Reusable confirmation modal for delete actions
 function ModalComponent({ onConfirm, onCancel }) {
   return (
     <div className="modal-overlay">
