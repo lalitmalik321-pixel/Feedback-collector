@@ -17,6 +17,9 @@ const db = mysql.createConnection({
 
   // Name of the database
   database: process.env.DB_NAME,
+
+  // Use the database port provided by the environment
+  port: process.env.DB_PORT,
 });
 
 // Connect to the MySQL database
