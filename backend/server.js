@@ -35,8 +35,7 @@ app.post("/api/feedback", (req, res) => {
 
   // SQL query to insert feedback into the database
   // ? placeholders are used to safely pass the values
-  const sql =
-    "INSERT INTO feedback (name, email, message) VALUES (?, ?, ?)";
+  const sql = "INSERT INTO feedback (name, email, message) VALUES (?, ?, ?)";
 
   // Execute the SQL query using the MySQL connection
   db.query(sql, [name, email, message], (error, result) => {
@@ -115,6 +114,9 @@ app.delete("/api/feedback/:id", (req, res) => {
 
 
 // Start the backend server on port 5001
-app.listen(5001, () => {
-  console.log("Server running on port 5001");
+
+const PORT = process.env.PORT || 5001;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
