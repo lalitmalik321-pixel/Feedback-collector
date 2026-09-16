@@ -1,4 +1,3 @@
-// Reusable confirmation modal for delete actions
 function ModalComponent({ onConfirm, onCancel }) {
   return (
     <div className="modal-overlay">
@@ -8,7 +7,10 @@ function ModalComponent({ onConfirm, onCancel }) {
         <p>Are you sure you want to delete this feedback?</p>
 
         <div className="modal-buttons">
+          {/* Close the modal without deleting */}
           <button onClick={onCancel}>Cancel</button>
+
+          {/* Confirm the deletion */}
           <button onClick={onConfirm}>Delete</button>
         </div>
       </div>

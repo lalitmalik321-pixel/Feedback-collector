@@ -1,4 +1,4 @@
-const API_URL = "/api/feedback";
+const API_URL = "http://localhost:5001/api/feedback";
 
 // Fetch all feedback from the backend
 const getFeedbacks = () => {

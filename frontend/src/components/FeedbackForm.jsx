@@ -1,61 +1,68 @@
 import { useState } from "react";
 
-function FeedbackForm({ feedbacks, setFeedbacks })  {
+function FeedbackForm({ feedbacks, setFeedbacks }) {
+  // Store the values entered in the form
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  //After submit button
- const handleSubmit = async (event) => {
-  event.preventDefault();
+  const handleSubmit = async (event) => {
+    // Prevent the page from refreshing when the form is submitted
+    event.preventDefault();
 
-  if (!name || !email || !message) {
-    alert("Please fill in all fields");
-    return;
-  }
-
-  try {
-    // Send the feedback to the backend API
-    const response = await fetch("/api/feedback", { 
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        message,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      alert("Failed to save feedback");
+    // Check that all fields have been filled
+    if (!name || !email || !message) {
+      alert("Please fill in all fields");
       return;
     }
 
-    const newFeedback = {
-      id: data.id,
-      name,
-      email,
-      message,
-      created_at: new Date().toISOString(),
-    };
+    try {
+      // Send the feedback to the backend API
+      const response = await fetch(
+        "http://localhost:5001/api/feedback",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            message,
+          }),
+        }
+      );
 
-    // Add the newly submitted feedback to the current list
-    setFeedbacks([...feedbacks, newFeedback]);
+      const data = await response.json();
 
-    setName("");
-    setEmail("");
-    setMessage("");
+      // Show an error if the backend request failed
+      if (!response.ok) {
+        alert("Failed to save feedback");
+        return;
+      }
 
-    alert("Feedback submitted successfully");
-  } catch (error) {
-    console.log("Error:", error);
-    alert("Something went wrong");
-  }
-};
+      // Add the newly submitted feedback to the displayed list
+      const newFeedback = {
+        id: data.id,
+        name,
+        email,
+        message,
+        created_at: new Date().toISOString(),
+      };
+
+      setFeedbacks([...feedbacks, newFeedback]);
+
+      // Clear the form after successful submission
+      setName("");
+      setEmail("");
+      setMessage("");
+
+      alert("Feedback submitted successfully");
+    } catch (error) {
+      console.log("Error:", error);
+      alert("Something went wrong");
+    }
+  };
 
   return (
     <div className="form-card">
@@ -64,6 +71,7 @@ function FeedbackForm({ feedbacks, setFeedbacks })  {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Name</label>
+
           <input
             type="text"
             value={name}
@@ -74,6 +82,7 @@ function FeedbackForm({ feedbacks, setFeedbacks })  {
 
         <div className="form-group">
           <label>Email</label>
+
           <input
             type="email"
             value={email}
@@ -84,6 +93,7 @@ function FeedbackForm({ feedbacks, setFeedbacks })  {
 
         <div className="form-group">
           <label>Message</label>
+
           <textarea
             value={message}
             onChange={(event) => setMessage(event.target.value)}

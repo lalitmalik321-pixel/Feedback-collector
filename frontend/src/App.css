@@ -1,18 +1,21 @@
+/* Main page */
 .app {
   min-height: 100vh;
   padding: 40px 20px;
-  background-color: #1f2937;
+  background: #f3f4f6;
 }
 
+/* Main content area */
 .container {
   max-width: 700px;
   margin: 0 auto;
 }
 
+/* Page heading */
 .title {
   text-align: center;
   margin-bottom: 30px;
-  color: #f3f4f6;
+  color: #1f2937;
   font-size: 32px;
 }
 
@@ -20,15 +23,15 @@
 .form-card {
   padding: 25px;
   margin-bottom: 25px;
-  background-color: #374151;
-  border: 1px solid #4b5563;
-  border-radius: 10px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .form-card h2 {
   margin-top: 0;
   margin-bottom: 20px;
-  color: #f3f4f6;
+  color: #1f2937;
 }
 
 .form-group {
@@ -38,7 +41,7 @@
 .form-group label {
   display: block;
   margin-bottom: 7px;
-  color: #e5e7eb;
+  color: #374151;
   font-size: 14px;
   font-weight: 600;
 }
@@ -48,12 +51,12 @@
   width: 100%;
   box-sizing: border-box;
   padding: 11px;
-  border: 1px solid #6b7280;
-  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
   font-size: 14px;
   outline: none;
-  background-color: #1f2937;
-  color: #f3f4f6;
+  background: #f9fafb;
+  color: #1f2937;
 }
 
 .form-group input::placeholder,
@@ -63,7 +66,8 @@
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: #9ca3af;
+  border-color: #6b7280;
+  background: white;
 }
 
 .form-group textarea {
@@ -71,19 +75,21 @@
   resize: vertical;
 }
 
+/* Submit button */
 .submit-button {
   width: 100%;
   padding: 11px;
   border: none;
-  border-radius: 6px;
-  background-color: #4b5563;
+  border-radius: 7px;
+  background: #374151;
   color: white;
   font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
 }
 
 .submit-button:hover {
-  background-color: #6b7280;
+  background: #1f2937;
 }
 
 /* Search and date filters */
@@ -95,13 +101,13 @@
 .search-box input {
   width: 100%;
   box-sizing: border-box;
-  padding: 10px;
-  border: 1px solid #4b5563;
-  border-radius: 6px;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
   font-size: 14px;
   outline: none;
-  background-color: #374151;
-  color: #f3f4f6;
+  background: white;
+  color: #1f2937;
 }
 
 .search-box input::placeholder {
@@ -109,7 +115,7 @@
 }
 
 .search-box input:focus {
-  border-color: #9ca3af;
+  border-color: #6b7280;
 }
 
 /* Feedback list */
@@ -121,42 +127,45 @@
 
 .feedback-list h2 {
   margin-bottom: 18px;
-  color: #f3f4f6;
+  color: #1f2937;
 }
 
+/* Individual feedback */
 .feedback-card {
   margin-bottom: 15px;
   padding: 20px;
-  background-color: #374151;
-  border: 1px solid #4b5563;
-  border-radius: 8px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 }
 
 .feedback-card h3 {
   margin: 0 0 8px;
-  color: #f3f4f6;
+  color: #1f2937;
   font-size: 18px;
 }
 
 .feedback-card p {
   margin: 6px 0;
-  color: #d1d5db;
+  color: #6b7280;
   line-height: 1.5;
 }
 
+/* Delete button */
 .feedback-card button {
   margin-top: 12px;
   padding: 8px 14px;
   border: none;
-  border-radius: 5px;
-  background-color: #dc3545;
+  border-radius: 6px;
+  background: #dc3545;
   color: white;
   font-size: 13px;
   cursor: pointer;
 }
 
 .feedback-card button:hover {
-  background-color: #c82333;
+  background: #b91c1c;
 }
 
 /* Delete confirmation modal */
@@ -167,26 +176,26 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.55);
 }
 
 .modal-box {
   width: 100%;
   max-width: 400px;
   padding: 25px;
-  background-color: #374151;
-  border: 1px solid #4b5563;
-  border-radius: 8px;
+  background: white;
+  border-radius: 10px;
   text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .modal-box h2 {
   margin-top: 0;
-  color: #f3f4f6;
+  color: #1f2937;
 }
 
 .modal-box p {
-  color: #d1d5db;
+  color: #6b7280;
 }
 
 .modal-buttons {
@@ -199,11 +208,12 @@
 .modal-buttons button {
   padding: 9px 18px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
 }
 
+/* Mobile layout */
 @media (max-width: 600px) {
   .app {
     padding: 25px 15px;
