@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://feedback-collector-production-55dd.up.railway.app/api/:path*"
+    }
+  ]
+}

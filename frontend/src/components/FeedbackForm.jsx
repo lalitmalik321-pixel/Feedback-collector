@@ -16,7 +16,7 @@ function FeedbackForm({ feedbacks, setFeedbacks })  {
 
   try {
     // Send the feedback to the backend API
-    const response = await fetch("https://feedback-collector-production-55dd.up.railway.app/api/feedback", { 
+    const response = await fetch("/api/feedback", { 
       method: "POST",
       headers: {
         "Content-Type": "application/json",

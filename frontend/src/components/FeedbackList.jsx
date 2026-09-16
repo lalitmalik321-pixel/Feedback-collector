@@ -26,7 +26,7 @@ const handleDeleteClick = (id) => {
     {selectedId !== null && (                        
         <ModalComponent
           onConfirm={() => {
-      fetch(`https://feedback-collector-production-55dd.up.railway.app/api/feedback/${selectedId}`, {
+  fetch(`/api/feedback/${selectedId}`, {
        method: "DELETE",
       })
       .then((response) => response.json())
